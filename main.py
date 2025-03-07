@@ -22,7 +22,7 @@ async def whatsapp_webhook(request: Request):
     try:
         form_data = await request.form()
         incoming_message = form_data.get("Body", "").strip()
-        sender_number = form_data.get("From", "").strip()  # e.g., "whatsapp:+923313028194"
+        sender_number = form_data.get("From", "").strip()  # e.g., "whatsapp:+92"
         sender_name = form_data.get("ProfileName", "User")
         
         logger.info(f"Received WhatsApp message from {sender_number} ({sender_name}): {incoming_message}")
