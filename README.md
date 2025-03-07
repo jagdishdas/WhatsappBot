@@ -43,7 +43,40 @@ A production-grade solution that integrates a dynamic chatbot with WhatsApp usin
 
 ## Setup and Installation
 
-### 1. Clone the Repository
-```bash
-git clone <repository-url>
-cd whatsapp-chatbot
+1. Clone the repository:  
+   `git clone https://github.com/<your-username>/whatsapp-chatbot.git`  
+   `cd whatsapp-chatbot`  
+2. Create and activate a virtual environment:  
+   `python -m venv myenv`  
+   (On Windows: `.\myenv\Scripts\activate` | On macOS/Linux: `source myenv/bin/activate`)  
+3. Install dependencies:  
+   `pip install fastapi uvicorn twilio python-dotenv httpx`  
+4. Create a `.env` file in the project root with:
+
+5. Configure your Twilio Sandbox:  
+- Log in to your Twilio Console and navigate to the WhatsApp Sandbox settings.  
+- Set the "When a message comes in" webhook URL to your public URL (e.g., if using ngrok, `https://<your-ngrok-url>.ngrok-free.app/whatsapp`).  
+- Save the changes.
+
+**Running the Application:**  
+1. Start the FastAPI server:  
+`python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000`  
+2. (Optional) Expose your local server with ngrok:  
+`ngrok http 8000`  
+Then update your Twilio webhook with the provided ngrok URL followed by `/whatsapp`.
+
+**Testing the Chatbot:**  
+1. Join the Sandbox: Open WhatsApp and send the provided join code from your Twilio Sandbox settings to the sandbox number (typically, whatsapp:+14155238886).  
+2. Send a test message from your enrolled WhatsApp number.  
+3. The message will be forwarded to the FastAPI endpoint, processed by the chatbot API, and the generated reply will be sent back to your WhatsApp.
+
+**Troubleshooting:**  
+- Ensure your webhook URL is correct and includes the `/whatsapp` path.  
+- Verify that your WhatsApp number is enrolled in the Twilio Sandbox.  
+- Check your FastAPI and Twilio logs for errors (e.g., daily messaging limits on trial accounts).  
+- If messages are not delivered, test with a static reply to isolate integration issues.
+
+**License:**  
+This project is licensed under the MIT License.
+
+
